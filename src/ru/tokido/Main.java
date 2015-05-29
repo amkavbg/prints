@@ -10,10 +10,6 @@ import java.io.IOException;
 
 public class Main {
 
-    private final static String SNMP_COMMUNITY = "public";
-    private final static int SNMP_RETRIES = 3;
-    private final static long SNMP_TIMEOUT = 1000L;
-
     private Snmp snmp = null;
     private TransportMapping transport = null;
 
@@ -21,29 +17,6 @@ public class Main {
         Target t = getTarget("udp:172.16.3.230/161");
         String r = send(t, "1.3.6.1.2.1.25.3.2.1.3.1");
         System.out.println(r);
-    }
-
-    private String send (Target target, String oid) throws IOException {
-        PDU pdu = new PDU();
-        pdu.add(new VariableBinding(new OID(oid)));
-        pdu.setType(PDU.GET);
-        ResponseEvent event = snmp.send(pdu, target, null);
-        if (event != null) {
-            return event.getResponse().get(0).toString();
-        } else {
-            return "Timeout exceeded";
-        }
-    }
-
-    private Target getTarget(String address) {
-        Address targetAddress = GenericAddress.parse(address);
-        CommunityTarget target = new CommunityTarget();
-        target.setCommunity(new OctetString(SNMP_COMMUNITY));
-        target.setAddress(targetAddress);
-        target.setRetries(SNMP_RETRIES);
-        target.setTimeout(SNMP_TIMEOUT);
-        target.setVersion(SnmpConstants.version1);
-        return target;
     }
 
     private void start() throws IOException {
