@@ -1,28 +1,27 @@
 package ru.tokido;
 
-public class Printer {
-    private String ipDevice;
-    private String nameDevice;
-    private String blackToner;
-    private String blackDrum;
+import java.util.Map;
 
-    public void Printer(String ip) {
-        ipDevice = ("udp:" + ip + "/161");
+public class Printer {
+    private String deviceIp;
+    private String deviceName;
+    private Map<String, String> oidToDescription;
+
+    public void Printer(String deviceIp,String deviceName) {
+        this.deviceIp = deviceIp;
+        this.deviceName = deviceName;
     }
 
-    public String getNamedevice() {
+    public void addOid(String oid, String description){
+        oidToDescription.put(oid,description);
+    }
+
+    public String getDeviceName(){
         return nameDevice;
     }
 
-    public String getIpdevice() {
+    public String getDeviceIp(){
         return ipDevice;
     }
 
-    public String getBlackToner() {
-        return blackToner;
-    }
-
-    public String getBlackDrum(){
-        return blackDrum;
-    }
 }
