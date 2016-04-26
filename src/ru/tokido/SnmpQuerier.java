@@ -17,7 +17,7 @@ public class SnmpQuerier {
     private Snmp snmp = null;
     private TransportMapping transport = null;
     //статус службы
-    private volatile boolean started = false;
+    protected volatile boolean started = false;
 
     public String send (String ip, String oid) throws IOException {
         if (!started) {
