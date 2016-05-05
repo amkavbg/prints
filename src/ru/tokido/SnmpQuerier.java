@@ -23,13 +23,16 @@ public class SnmpQuerier {
         if (!started) {
             throw new IllegalStateException("Not started");
         }
+        // create the target
         Target target = getTarget("udp:"+ip+"/161");
+        // create the PDU
         PDU pdu = new PDU();
         pdu.add(new VariableBinding(new OID(oid)));
         pdu.setType(PDU.GET);
+        // send the PDU
         ResponseEvent event = snmp.send(pdu, target, null);
         if (event != null) {
-            return event.getResponse().get(0).toString();
+            return event.getResponse().get(0).toValueString();
         } else {
             return "Timeout exceeded";
         }
