@@ -1,8 +1,13 @@
 package ru.tokido;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
+import java.io.Serializable;
 import java.util.Map;
 
-public class Printer {
+public class PrinterModel {
 
     //general variables
     private String Ip = "none";
@@ -35,10 +40,10 @@ public class Printer {
     private Map<String, String> oid;
 
     //mega default
-    public Printer(){}
+    public PrinterModel(){}
 
     //default black
-    public Printer(String ip, String name, int blackTonerLvl, String error, String status) {
+    public PrinterModel(String ip, String name, int blackTonerLvl, String error, String status) {
         Ip = ip;
         Name = name;
         BlackTonerLvl = blackTonerLvl;
@@ -46,7 +51,7 @@ public class Printer {
         Status = status;
     }
     //default color
-    public Printer(String ip, String name, int blackTonerLvl, int cyanTonerLvl, int magentaTonerLvl, int yellowTonerLvl, String error, String status) {
+    public PrinterModel(String ip, String name, int blackTonerLvl, int cyanTonerLvl, int magentaTonerLvl, int yellowTonerLvl, String error, String status) {
         Ip = ip;
         Name = name;
         BlackTonerLvl = blackTonerLvl;
@@ -218,5 +223,9 @@ public class Printer {
         this.oid = oid;
     }
 
-    public void sayHello() { System.out.println(Ip); }
+    //test method
+    public void sayHello() { System.out.println(Ip);
+        System.out.println(Model); }
+
+
 }

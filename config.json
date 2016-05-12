@@ -1,5 +1,5 @@
 {
-    'Printers': [
+    "Printers": [
         {
             "desc": "C810",
             "oid": {
