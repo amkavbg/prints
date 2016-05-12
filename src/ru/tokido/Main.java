@@ -15,19 +15,19 @@ public class Main {
         //snmp hard worker =)
         SnmpQuerier snmpquerier = new SnmpQuerier();
 
-        //читаем конфиг и делаем список из айпи принтеров
+        //?????? ?????? ? ?????? ?????? ?? ???? ?????????
         List<String> list = new ArrayList<>();
         Scanner in = new Scanner(new File("ip.txt"));
         while (in.hasNextLine()) list.add(in.nextLine());
 
-        //создаем объекты "принтер" с заполнеными пол€ми IP
+        //??????? ??????? "???????" ? ??????????? ?????? IP
         for (String p : list) {
             PrinterModel printerModel = new PrinterModel();
             printerModel.setIp(p);
             try {
                 try {
                     snmpquerier.start();
-                    //обращаемс€ к устройству и вы€сн€ем его модель из OID
+                    //?????????? ? ?????????? ? ???????? ??? ?????? ?? OID
                     printerModel.setModel(snmpquerier.send(p, "1.3.6.1.2.1.25.3.2.1.3.1"));
                     System.out.println(printerModel + "; ip=" + printerModel.getIp() + "; model=" + printerModel.getModel());
                 } finally {
@@ -38,13 +38,18 @@ public class Main {
         }
 */
         try {
-            PrinterModel printer = new PrinterModel();
+
             ObjectMapper m = new ObjectMapper();
-            JsonNode rootNode = m.readTree(new File("config.json"));
+            JsonNode root = m.readTree(new File("config.json"));
 
 
+            JsonNode secondroot = root.path("Printers");
+            System.out.println(secondroot);
 
-
+            for (JsonNode node : secondroot) {
+                //PrinterModel printer = new PrinterModel();
+                System.out.println(node.path("desc"));
+            }
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         }
