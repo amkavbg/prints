@@ -32,7 +32,7 @@ public class Printer {
     private String Error = "none";
     private String Status = "none";
     //map relations between oid and description
-    private Map<String, String> oidToDescription;
+    private Map<String, String> oid;
 
     //mega default
     public Printer(){}
@@ -210,12 +210,12 @@ public class Printer {
         Status = status;
     }
 
-    public Map<String, String> getOidToDescription() {
-        return oidToDescription;
+    public Map<String, String> getOid() {
+        return oid;
     }
 
-    public void setOidToDescription(Map<String, String> oidToDescription) {
-        this.oidToDescription = oidToDescription;
+    public void setOid(Map<String, String> oid) {
+        this.oid = oid;
     }
 
     public void sayHello() { System.out.println(Ip); }
