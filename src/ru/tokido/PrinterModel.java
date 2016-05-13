@@ -10,7 +10,7 @@ import java.util.Map;
 public class PrinterModel {
 
     //general variables
-    private String Ip = "none";
+    private String Ip = "00:00:00:00:00";
     private String Name = "none";
     private String Model = "none";
     //black variables
@@ -224,8 +224,8 @@ public class PrinterModel {
     }
 
     //test method
-    public void sayHello() { System.out.println(Ip);
-        System.out.println(Model); }
+    public void sayHello() { System.out.println("Ip: " + Ip);
+        System.out.println("Model: "+Model); }
 
 
 }

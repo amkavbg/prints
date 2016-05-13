@@ -42,13 +42,14 @@ public class Main {
             ObjectMapper m = new ObjectMapper();
             JsonNode root = m.readTree(new File("config.json"));
 
-
             JsonNode secondroot = root.path("Printers");
             System.out.println(secondroot);
 
             for (JsonNode node : secondroot) {
-                //PrinterModel printer = new PrinterModel();
-                System.out.println(node.path("desc"));
+                PrinterModel printer = new PrinterModel();
+                printer.setModel(node.path("desc").asText());
+                //System.out.println(node.path("desc"));
+                printer.sayHello();
             }
         } catch (JsonGenerationException e) {
             e.printStackTrace();
