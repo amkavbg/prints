@@ -1,5 +1,6 @@
 package ru.tokido;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class PrinterModel {
@@ -33,7 +34,7 @@ public class PrinterModel {
     private String Status = "none";
 
     //map relations between oid and description
-    private Map<String, String> oid;
+    private Map<String, String> oid = new HashMap<>();
 
     //mega default
     public PrinterModel(){

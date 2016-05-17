@@ -44,12 +44,12 @@ public class Main {
             ObjectMapper m = new ObjectMapper();
 
             JsonNode root = m.readTree(new File("config.json"));
-                System.out.println(root.getNodeType());  //lets see what type the node is //prints OBJECT
-                System.out.println(root.isContainerNode()); //is it a container //prints true
+                //System.out.println(root.getNodeType());  //lets see what type the node is //prints OBJECT
+                //System.out.println(root.isContainerNode()); //is it a container //prints true
 
             JsonNode secondroot = root.path("Printers");
-                System.out.println(secondroot.getNodeType());  //prints ARRAY
-                System.out.println(secondroot.isContainerNode());   //true
+                //System.out.println(secondroot.getNodeType());  //prints ARRAY
+                //System.out.println(secondroot.isContainerNode());   //true
 
             for (JsonNode node : secondroot) {
                 PrinterModel printer = new PrinterModel();
@@ -57,10 +57,12 @@ public class Main {
                 System.out.println(printer.getModel());
 
                 JsonNode oidroot = node.path("oid");
-                Iterator<String> fieldNames = oidroot.fieldNames();
+                Iterator <String> fieldNames = oidroot.fieldNames();
                 while (fieldNames.hasNext()) {
                     String fieldName = fieldNames.next();
-                    System.out.println(fieldName);
+                    String fieldValue = String.valueOf(oidroot.get(fieldName));
+                    System.out.println(fieldName+" : "+oidroot.get(fieldName));
+                    //printer.setOid(fieldName,fieldValue);
                 }
                 //printer.sayHello();
             }
