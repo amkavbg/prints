@@ -1,17 +1,12 @@
 package ru.tokido;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.deser.Deserializers;
-import com.sun.org.apache.xpath.internal.SourceTree;
-
-import java.io.Serializable;
 import java.util.Map;
 
 public class PrinterModel {
 
     //general variables
     private String Ip = "00:00:00:00:00";
-    private String Name = "none";
+    private String NetName = "none";
     private String Model = "none";
     //black variables
     private int BlackTonerLvl = 0;
@@ -36,24 +31,27 @@ public class PrinterModel {
     //error variables
     private String Error = "none";
     private String Status = "none";
+
     //map relations between oid and description
     private Map<String, String> oid;
 
     //mega default
-    public PrinterModel(){}
+    public PrinterModel(){
+
+    }
 
     //default black
-    public PrinterModel(String ip, String name, int blackTonerLvl, String error, String status) {
+    public PrinterModel(String ip, String netName, int blackTonerLvl, String error, String status) {
         Ip = ip;
-        Name = name;
+        NetName = netName;
         BlackTonerLvl = blackTonerLvl;
         Error = error;
         Status = status;
     }
     //default color
-    public PrinterModel(String ip, String name, int blackTonerLvl, int cyanTonerLvl, int magentaTonerLvl, int yellowTonerLvl, String error, String status) {
+    public PrinterModel(String ip, String netName, int blackTonerLvl, int cyanTonerLvl, int magentaTonerLvl, int yellowTonerLvl, String error, String status) {
         Ip = ip;
-        Name = name;
+        NetName = netName;
         BlackTonerLvl = blackTonerLvl;
         CyanTonerLvl = cyanTonerLvl;
         MagentaTonerLvl = magentaTonerLvl;
@@ -71,12 +69,12 @@ public class PrinterModel {
         Ip = ip;
     }
 
-    public String getName() {
-        return Name;
+    public String getNetName() {
+        return NetName;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setNetName(String netName) {
+        NetName = netName;
     }
 
     public String getModel() {
@@ -225,7 +223,11 @@ public class PrinterModel {
 
     //test method
     public void sayHello() { System.out.println("Ip: " + Ip);
-        System.out.println("Model: "+Model); }
+        System.out.println("Model: "+Model);
+        for (String key : oid.keySet()) {
+            System.out.println("Key:" + key);
+        }
+    }
 
 
 }

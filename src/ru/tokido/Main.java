@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -43,13 +44,17 @@ public class Main {
             JsonNode root = m.readTree(new File("config.json"));
 
             JsonNode secondroot = root.path("Printers");
-            System.out.println(secondroot);
 
             for (JsonNode node : secondroot) {
                 PrinterModel printer = new PrinterModel();
                 printer.setModel(node.path("desc").asText());
-                //System.out.println(node.path("desc"));
-                printer.sayHello();
+                System.out.println(printer.getModel());
+
+                JsonNode oidroot = node.path("oid");
+                    for (String key : oidroot.fieldNames()) {
+
+                    }
+                //printer.sayHello();
             }
         } catch (JsonGenerationException e) {
             e.printStackTrace();
