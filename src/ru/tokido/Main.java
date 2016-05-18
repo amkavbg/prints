@@ -5,15 +5,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-/*
+
         //snmp hard worker =)
         SnmpQuerier snmpquerier = new SnmpQuerier();
 
@@ -38,7 +35,6 @@ public class Main {
                     System.out.println(e.toString());
             }
         }
-*/
         try {
 
             ObjectMapper m = new ObjectMapper();
@@ -54,7 +50,7 @@ public class Main {
             for (JsonNode node : secondroot) {
                 PrinterModel printer = new PrinterModel();
                 printer.setModel(node.path("desc").asText());
-                System.out.println(printer.getModel());
+                //System.out.println(printer.getModel());
 
                 JsonNode oidroot = node.path("oid");
                 Iterator <String> fieldNames = oidroot.fieldNames();
@@ -63,8 +59,7 @@ public class Main {
                     String fieldValue = oidroot.get(fieldName).asText();
                     printer.setParameters(fieldName, fieldValue);
                 }
-                System.out.println(printer.getParameters());
-                //printer.sayHello();
+                printer.sayHello(); //test
             }
         } catch (JsonGenerationException e) {
             e.printStackTrace();

@@ -214,16 +214,19 @@ public class PrinterModel {
         Status = status;
     }
 
-    //test method
+    //test method, sout fully parameters object
     public void sayHello() {
+        System.out.println("[==]");
         System.out.println("My name is "+getNetName());
         System.out.println("Ip: "+getIp());
         System.out.println("Model: "+getModel());
+        System.out.println("OID MAP: ");
+        System.out.println(getParameters());
+        System.out.println("[xx]");
     }
 
     public Map<String, String> getParameters() {
         return parameters;
-
     }
 
     public void setParameters(String fieldName, String fieldValue) {
