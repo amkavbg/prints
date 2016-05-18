@@ -34,7 +34,7 @@ public class PrinterModel {
     private String Status = "none";
 
     //map relations between oid and description
-    private Map<String, String> oid = new HashMap<>();
+    private Map<String, String> parameters = new HashMap<>();
 
     //mega default
     public PrinterModel(){
@@ -214,21 +214,19 @@ public class PrinterModel {
         Status = status;
     }
 
-    public Map<String, String> getOid() {
-        return oid;
-    }
-
-    public void setOid(Map<String, String> oid) {
-        this.oid = oid;
-    }
-
     //test method
-    public void sayHello() { System.out.println("Ip: " + Ip);
-        System.out.println("Model: "+Model);
-        for (String key : oid.keySet()) {
-            System.out.println("Key:" + key);
-        }
+    public void sayHello() {
+        System.out.println("My name is "+getNetName());
+        System.out.println("Ip: "+getIp());
+        System.out.println("Model: "+getModel());
     }
 
+    public Map<String, String> getParameters() {
+        return parameters;
 
+    }
+
+    public void setParameters(String fieldName, String fieldValue) {
+        parameters.put(fieldName,fieldValue);
+    }
 }

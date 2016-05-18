@@ -60,10 +60,10 @@ public class Main {
                 Iterator <String> fieldNames = oidroot.fieldNames();
                 while (fieldNames.hasNext()) {
                     String fieldName = fieldNames.next();
-                    String fieldValue = String.valueOf(oidroot.get(fieldName));
-                    System.out.println(fieldName+" : "+oidroot.get(fieldName));
-                    //printer.setOid(fieldName,fieldValue);
+                    String fieldValue = oidroot.get(fieldName).asText();
+                    printer.setParameters(fieldName, fieldValue);
                 }
+                System.out.println(printer.getParameters());
                 //printer.sayHello();
             }
         } catch (JsonGenerationException e) {
