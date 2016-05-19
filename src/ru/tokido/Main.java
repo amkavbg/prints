@@ -13,13 +13,15 @@ public class Main {
         //snmp hard worker and other workers =)
         SnmpQuerier snmpquerier = new SnmpQuerier();
         ObjectMapper m = new ObjectMapper();
-        List<Object> plist = new ArrayList<>();
+
+        //List<Object> plist = new ArrayList<>(); //array template object
+        Map<String, PrinterTemplate> ptempmap = new HashMap<>();
         //read config and create array ip
-        List<String> iplist = new ArrayList<>();
+        List<String> iplist = new ArrayList<>();  //array ip from text file
         Scanner in = new Scanner(new File("ip.txt"));
         while (in.hasNextLine()) iplist.add(in.nextLine());
 
-        //read config.json, create array template\skeleton object with model and oid map
+        //read config.json, create hashmap template\skeleton object with model and oid map
         try {
             JsonNode root = m.readTree(new File("config.json"));
             //System.out.println(root.getNodeType());  //lets see what type the node is //prints OBJECT
@@ -28,40 +30,34 @@ public class Main {
             //System.out.println(secondroot.getNodeType());  //prints ARRAY
             //System.out.println(secondroot.isContainerNode());   //true
             for (JsonNode node : secondroot) {
-                PrinterModel printerModel = new PrinterModel();
-                System.out.println("Object create: "+printerModel);
-                printerModel.setModel(node.path("desc").asText());
-                //System.out.println(printer.getModel());
+                PrinterTemplate printerTemplate = new PrinterTemplate();
+                System.out.println("Object create: "+ printerTemplate);         //
+                printerTemplate.setModel(node.path("desc").asText());
                 JsonNode oidroot = node.path("oid");
                 Iterator <String> fieldNames = oidroot.fieldNames();
                 while (fieldNames.hasNext()) {
                     String fieldName = fieldNames.next();
                     String fieldValue = oidroot.get(fieldName).asText();
-                    printerModel.setParameters(fieldName, fieldValue);
-
+                    printerTemplate.setParameters(fieldName, fieldValue);
                 }
-                printerModel.sayHello(); //test
-                plist.add(printerModel);
+                printerTemplate.sayHello();                                     //
+                ptempmap.put(printerTemplate.getModel(), printerTemplate);
             }
-            System.out.println("plist is: "+plist.size()+"  "+ plist);
+            System.out.println("ptempmap is: "+ptempmap.size()+" "+ptempmap);   //
         } catch (JsonGenerationException e) {e.printStackTrace();}
 
-        //assign field objects
+        //assign ip to object
         for (String ip : iplist) {
             try {
                 try {
                     snmpquerier.start();
                     String pm = snmpquerier.send(ip, "1.3.6.1.2.1.25.3.2.1.3.1");
-                    //put here check
 
                 } finally {
                     snmpquerier.stop();
                 }
             } catch (IOException e) {e.printStackTrace();}
         }
-
-
-
 //        for (String p : list) {
 //            printerModel.setIp(p);
 //            try {

@@ -3,7 +3,7 @@ package ru.tokido;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PrinterModel {
+public class PrinterTemplate {
 
     //general variables
     private String Ip = "00:00:00:00:00";
@@ -37,12 +37,12 @@ public class PrinterModel {
     private Map<String, String> parameters = new HashMap<>();
 
     //mega default
-    public PrinterModel(){
+    public PrinterTemplate(){
 
     }
 
     //default black
-    public PrinterModel(String ip, String netName, int blackTonerLvl, String error, String status) {
+    public PrinterTemplate(String ip, String netName, int blackTonerLvl, String error, String status) {
         Ip = ip;
         NetName = netName;
         BlackTonerLvl = blackTonerLvl;
@@ -50,7 +50,7 @@ public class PrinterModel {
         Status = status;
     }
     //default color
-    public PrinterModel(String ip, String netName, int blackTonerLvl, int cyanTonerLvl, int magentaTonerLvl, int yellowTonerLvl, String error, String status) {
+    public PrinterTemplate(String ip, String netName, int blackTonerLvl, int cyanTonerLvl, int magentaTonerLvl, int yellowTonerLvl, String error, String status) {
         Ip = ip;
         NetName = netName;
         BlackTonerLvl = blackTonerLvl;
