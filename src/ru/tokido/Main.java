@@ -16,6 +16,7 @@ public class Main {
 
         //List<Object> plist = new ArrayList<>(); //array template object
         Map<String, PrinterTemplate> ptempmap = new HashMap<>();
+        Map<String, PrinterTemplate> pmap = new HashMap<>();  //map printer object with completed filed #model,#oid map and other
         //read config and create array ip
         List<String> iplist = new ArrayList<>();  //array ip from text file
         Scanner in = new Scanner(new File("ip.txt"));
@@ -40,7 +41,7 @@ public class Main {
                     String fieldValue = oidroot.get(fieldName).asText();
                     printerTemplate.setParameters(fieldName, fieldValue);
                 }
-                printerTemplate.sayHello();                                     //
+                //printerTemplate.sayHello();                                     //
                 ptempmap.put(printerTemplate.getModel(), printerTemplate);
             }
             System.out.println("ptempmap is: "+ptempmap.size()+" "+ptempmap);   //
@@ -48,17 +49,21 @@ public class Main {
 
         //assign ip to object
         for (String ip : iplist) {
+            PrinterTemplate Printer = new PrinterTemplate();
             try {
                 try {
                     snmpquerier.start();
                     String pm = snmpquerier.send(ip, "1.3.6.1.2.1.25.3.2.1.3.1");
-
+                    System.out.println("ip:" + ip + "  ," + "model: " + pm);
+                    Printer = ptempmap.get(pm);
+                    pmap.put(pm, Printer);
 
                 } finally {
                     snmpquerier.stop();
                 }
             } catch (IOException e) {e.printStackTrace();}
         }
+        System.out.println("pmap is:"+pmap.size()+" "+pmap);
 //        for (String p : list) {
 //            printerModel.setIp(p);
 //            try {

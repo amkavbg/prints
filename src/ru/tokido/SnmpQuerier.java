@@ -9,14 +9,11 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 import java.io.IOException;
 
 public class SnmpQuerier {
-    //переменные для snmp4j
     private String SNMP_COMMUNITY = "public";
     private int SNMP_RETRIES = 3;
     private final long SNMP_TIMEOUT = 1000L;
-    //переменные класса
     private Snmp snmp = null;
     private TransportMapping transport = null;
-    //статус службы
     protected volatile boolean started = false;
 
     public String send (String ip, String oid) throws IOException {
