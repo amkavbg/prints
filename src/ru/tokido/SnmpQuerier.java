@@ -11,7 +11,7 @@ import java.io.IOException;
 public class SnmpQuerier {
     private String SNMP_COMMUNITY = "public";
     private int SNMP_RETRIES = 3;
-    private final long SNMP_TIMEOUT = 1000L;
+    private final long SNMP_TIMEOUT = 2000L;
     private Snmp snmp = null;
     private TransportMapping transport = null;
     protected volatile boolean started = false;

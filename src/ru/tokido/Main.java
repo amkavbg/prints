@@ -32,8 +32,9 @@ public class Main {
             //System.out.println(secondroot.isContainerNode());   //true
             for (JsonNode node : secondroot) {
                 PrinterTemplate printerTemplate = new PrinterTemplate();
-                System.out.println("Object create: "+ printerTemplate);         //
+                System.out.println("Object create: " + printerTemplate);         //
                 printerTemplate.setModel(node.path("desc").asText());
+                //System.out.println(node.path("desc"));
                 JsonNode oidroot = node.path("oid");
                 Iterator <String> fieldNames = oidroot.fieldNames();
                 while (fieldNames.hasNext()) {
@@ -44,26 +45,27 @@ public class Main {
                 //printerTemplate.sayHello();                                     //
                 ptempmap.put(printerTemplate.getModel(), printerTemplate);
             }
-            System.out.println("ptempmap is: "+ptempmap.size()+" "+ptempmap);   //
+            System.out.println("ptempmap is: "+ptempmap.size()+"\n "+ptempmap);   //
         } catch (JsonGenerationException e) {e.printStackTrace();}
 
         //assign ip to object
         for (String ip : iplist) {
-            PrinterTemplate Printer = new PrinterTemplate();
+            PrinterTemplate p = new PrinterTemplate();
             try {
                 try {
                     snmpquerier.start();
-                    String pm = snmpquerier.send(ip, "1.3.6.1.2.1.25.3.2.1.3.1");
-                    System.out.println("ip:" + ip + "  ," + "model: " + pm);
-                    Printer = ptempmap.get(pm);
-                    pmap.put(pm, Printer);
+                    String pmodel = snmpquerier.send(ip, "1.3.6.1.2.1.25.3.2.1.3.1");
+                    System.out.println("ip:" + ip + "  ," + "model: " + pmodel);
+                    p = ptempmap.get(pmodel);
+                    //p.setIp(ip);
+                    pmap.put(ip, p);
 
                 } finally {
                     snmpquerier.stop();
                 }
             } catch (IOException e) {e.printStackTrace();}
         }
-        System.out.println("pmap is:"+pmap.size()+" "+pmap);
+        System.out.println("pmap is:"+pmap.size()+"\n "+pmap);
 //        for (String p : list) {
 //            printerModel.setIp(p);
 //            try {
