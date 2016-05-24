@@ -1,5 +1,9 @@
 package ru.tokido;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * Created by tokido on 23.05.2016.
  */
@@ -33,10 +37,13 @@ public class Printer {
     //
     private PrinterTemplate template;
 
+    private SnmpQuerier snmpq;
+
     //mega default
-    public Printer(PrinterTemplate template, String ip){
+    public Printer(PrinterTemplate template, String ip,SnmpQuerier snmpq){
         this.template=template;
         this.Ip=ip;
+        this.snmpq=snmpq;
     }
 
     //default black
@@ -209,9 +216,21 @@ public class Printer {
         System.out.println("[==]");
         System.out.println("My name is "+getNetName());
         System.out.println("Ip: "+getIp());
-        //System.out.println("Model: "+getModel());
+        System.out.println("Model: "+template.getModel());
         System.out.println("OID MAP: ");
-        //System.out.println(getParameters());
+        System.out.println(template.getParameters());
         System.out.println("[xx]");
+    }
+
+    public void recognize (){
+        Map<String,String> oid = template.getParameters();
+        for (Map.Entry<String,String> entry : oid.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            //System.out.println("key "+key+" = "+value);
+        }
+
+        System.out.println("recognize!");
     }
 }
