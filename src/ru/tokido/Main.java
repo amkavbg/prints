@@ -53,17 +53,35 @@ public class Main {
                 try {
                     snmpquerier.start();
                     String pmodel = snmpquerier.send(ip, "1.3.6.1.2.1.25.3.2.1.3.1");
-                    System.out.println("working -- ip:" + ip + "  ," + "model: " + pmodel);
+                    //System.out.println("working -- ip:" + ip + "  ," + "model: " + pmodel);
                     Printer p = new Printer(ptempmap.get(pmodel),ip,snmpquerier);
                     p.recognize();
                     //p.print(); //TODO: write this method
-                    pmap.put(ip, p);
+                    pmap.put(ip, p); ///fixme
 
                 } finally {
                     snmpquerier.stop();
                 }
             } catch (IOException e) {e.printStackTrace();}
         }
+
+
+
+//        for (Printer printer : pmap.values()) {
+//            String blackTonerLevel = printer.getValueByKey("BlackTonerLevel");
+//            System.out.println("IP: "+printer.getIp()+" BlackTonerLevel: "+blackTonerLevel);
+//        }
+
+        for (Printer printer : pmap.values()) {
+            System.out.println("Params for Printer ["+ printer.getIp()+"] "+printer.getModel()+" NetName :"+printer.getValueByKey("NetName"));
+            for (String paramKey : printer.getParamKeys()) {
+                String valueByKey = printer.getValueByKey(paramKey);
+                System.out.println(
+                        "        Param key: "+paramKey+" ,Value: "+ valueByKey
+                );
+            }
+        }
+
         System.out.println("pmap is: "+pmap.size()+"\n "+pmap);
 //        for (String p : list) {
 //            printerModel.setIp(p);
