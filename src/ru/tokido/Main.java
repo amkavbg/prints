@@ -10,11 +10,8 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        //snmp hard worker and other workers =)
         SnmpQuerier snmpquerier = new SnmpQuerier();
         ObjectMapper m = new ObjectMapper();
-
-        //List<Object> plist = new ArrayList<>(); //array template object
         Map<String, PrinterTemplate> ptempmap = new HashMap<>();
         Map<String, Printer> pmap = new HashMap<>();  //map printer object with completed filed #model,#oid map and other
         //read config and create array ip
@@ -53,11 +50,10 @@ public class Main {
                 try {
                     snmpquerier.start();
                     String pmodel = snmpquerier.send(ip, "1.3.6.1.2.1.25.3.2.1.3.1");
-                    //System.out.println("working -- ip:" + ip + "  ," + "model: " + pmodel);
                     Printer p = new Printer(ptempmap.get(pmodel),ip,snmpquerier);
                     p.recognize();
                     //p.print(); //TODO: write this method
-                    pmap.put(ip, p); ///fixme
+                    pmap.put(ip, p);
 
                 } finally {
                     snmpquerier.stop();

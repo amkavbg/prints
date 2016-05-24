@@ -26,11 +26,19 @@ public class Printer {
     public void recognize () throws IOException {
         Map<String,String> paramToOid = template.getParameters();
         for (Map.Entry<String,String> entry : paramToOid.entrySet()) {
+            String wv = "none";
             String key = entry.getKey();
-            String oid = entry.getValue();
-            String oidValue = snmpq.send(ip, oid);
-            System.out.println("Key: "+key+", Val: "+oidValue);
-            paramValues.put(key,oidValue);
+            if (entry.getValue() == wv) {
+                System.out.println("Key: "+key+", Val: "+wv);
+                paramValues.put(key,wv);
+            }
+            else {
+                String oid = entry.getValue();
+                String oidValue = snmpq.send(ip, oid);
+                System.out.println("Key: "+key+", Val: "+oidValue);
+                paramValues.put(key, oidValue);
+            }
+
         }
         System.out.println("recognize!");
     }
