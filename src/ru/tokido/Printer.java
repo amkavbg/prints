@@ -28,19 +28,21 @@ public class Printer {
         for (Map.Entry<String,String> entry : paramToOid.entrySet()) {
             String wv = "none";
             String key = entry.getKey();
-            if (entry.getValue() == wv) {
-                System.out.println("Key: "+key+", Val: "+wv);
-                paramValues.put(key,wv);
+            String oid = entry.getValue();
+
+            if (oid != wv) {
+                //String oid = entry.getValue();
+                String oidValue = snmpq.send(ip, oid);
+                //System.out.println("Key: "+key+", Val: "+oidValue);
+                paramValues.put(key, oidValue);
             }
             else {
-                String oid = entry.getValue();
-                String oidValue = snmpq.send(ip, oid);
-                System.out.println("Key: "+key+", Val: "+oidValue);
-                paramValues.put(key, oidValue);
+                //System.out.println("Key: "+key+", Val: "+wv);
+                paramValues.put(key,wv);
             }
 
         }
-        System.out.println("recognize!");
+        //System.out.println("recognize!");
     }
 
     public String getValueByKey(String key){
