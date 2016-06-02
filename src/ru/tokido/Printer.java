@@ -30,15 +30,15 @@ public class Printer {
             String key = entry.getKey();
             String oid = entry.getValue();
 
-            if (oid != wv) {
+            if (oid.equals(wv)) {
+                //System.out.println("Key: "+key+", Val: "+wv);
+                paramValues.put(key,wv);
+            }
+            else {
                 //String oid = entry.getValue();
                 String oidValue = snmpq.send(ip, oid);
                 //System.out.println("Key: "+key+", Val: "+oidValue);
                 paramValues.put(key, oidValue);
-            }
-            else {
-                //System.out.println("Key: "+key+", Val: "+wv);
-                paramValues.put(key,wv);
             }
 
         }
