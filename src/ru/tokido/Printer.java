@@ -13,7 +13,7 @@ public class Printer {
 
     private String ip = "00:00:00:00:00";
     private PrinterTemplate template;
-    private int TonerLvlRepr = 0;
+    //private int TonerLvlRepr = 0;
 
     private SnmpQuerier snmpq;
 
@@ -41,13 +41,26 @@ public class Printer {
                 //System.out.println("Key: "+key+", Val: "+oidValue);
                 paramValues.put(key, oidValue);
             }
-
         }
 
+        //TODO:write private method for TonerLVL (use P=A\B*100%) applicable to printer, who usage 2 OID for toner lvl
 
+        String max;
+        String cur;
+        for (Map.Entry<String,String> entry : paramValues.entrySet()){
+            String maxkey = "BlackTonerLevelMAX";
+            String curkey = "BlackTonerLevelCurrent";
 
+            String key = entry.getKey();
+            String parm = entry.getValue();
+
+            if (key.equals(maxkey)) max = parm;
+            if (key.equals(curkey)) cur = parm;
+        }
+        //String p = cur / max * 100;
+        paramValues.put("BlackTonerLevel",)
         //System.out.println("recognize!      " + template);
-        //TODO:write private method for TonerLVL (use P=A\B*100%)
+
     }
 
     public String getValueByKey(String key){
