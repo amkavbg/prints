@@ -13,6 +13,7 @@ public class Printer {
 
     private String ip = "00:00:00:00:00";
     private PrinterTemplate template;
+    private int TonerLvlRepr = 0;
 
     private SnmpQuerier snmpq;
 
@@ -42,7 +43,11 @@ public class Printer {
             }
 
         }
-        //System.out.println("recognize!");
+
+
+
+        //System.out.println("recognize!      " + template);
+        //TODO:write private method for TonerLVL (use P=A\B*100%)
     }
 
     public String getValueByKey(String key){

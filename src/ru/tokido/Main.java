@@ -29,7 +29,7 @@ public class Main {
             //System.out.println(secondroot.isContainerNode());   //true
             for (JsonNode node : secondroot) {
                 PrinterTemplate printerTemplate = new PrinterTemplate();
-                System.out.println("Object create: " + printerTemplate);         //
+                //System.out.println("Object create: " + printerTemplate);         //
                 printerTemplate.setModel(node.path("desc").asText());
                 //System.out.println(node.path("desc"));
                 JsonNode oidroot = node.path("oid");
@@ -73,11 +73,11 @@ public class Main {
             for (String paramKey : printer.getParamKeys()) {
                 String valueByKey = printer.getValueByKey(paramKey);
                 System.out.println(
-                        "        Param key: "+paramKey+" ,Value: "+ valueByKey
+                        "        Param key: "+paramKey+" :"+ valueByKey
                 );
             }
         }
-
+        //TODO:for future GUI, map of fully completed objects
         System.out.println("pmap is: "+pmap.size()+"\n "+pmap);
 //        for (String p : list) {
 //            printerModel.setIp(p);
