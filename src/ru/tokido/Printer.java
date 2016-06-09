@@ -10,14 +10,10 @@ import java.util.Set;
  */
 public class Printer {
     private Map<String,String> paramValues=new HashMap<>();
-
     private String ip = "00:00:00:00:00";
     private PrinterTemplate template;
-    //private int TonerLvlRepr = 0;
-
     private SnmpQuerier snmpq;
 
-    //mega default
     public Printer(PrinterTemplate template, String ip,SnmpQuerier snmpq){
         this.template=template;
         this.ip =ip;
@@ -25,42 +21,43 @@ public class Printer {
     }
 
     public void recognize () throws IOException {
-        Map<String,String> paramToOid = template.getParameters();
-        for (Map.Entry<String,String> entry : paramToOid.entrySet()) {
+        String maxkey = "BlackTonerLevelMAX";
+        String curkey = "BlackTonerLevelCurrent";
+        Map<String, String> paramToOid = template.getParameters();
+        for (Map.Entry<String, String> entry : paramToOid.entrySet()) {
             String wv = "none";
             String key = entry.getKey();
             String oid = entry.getValue();
-
             if (oid.equals(wv)) {
-                //System.out.println("Key: "+key+", Val: "+wv);
-                paramValues.put(key,wv);
-            }
-            else {
-                //String oid = entry.getValue();
+                paramValues.put(key, wv);
+            } else {
                 String oidValue = snmpq.send(ip, oid);
-                //System.out.println("Key: "+key+", Val: "+oidValue);
                 paramValues.put(key, oidValue);
             }
         }
 
-        //TODO:write private method for TonerLVL (use P=A\B*100%) applicable to printer, who usage 2 OID for toner lvl
-
-        String max;
-        String cur;
-        for (Map.Entry<String,String> entry : paramValues.entrySet()){
-            String maxkey = "BlackTonerLevelMAX";
-            String curkey = "BlackTonerLevelCurrent";
-
+        String max = null;
+        String cur = null;
+        for (Map.Entry<String, String> entry : paramValues.entrySet()) {
             String key = entry.getKey();
             String parm = entry.getValue();
-
             if (key.equals(maxkey)) max = parm;
             if (key.equals(curkey)) cur = parm;
         }
-        //String p = cur / max * 100;
-        paramValues.put("BlackTonerLevel",)
-        //System.out.println("recognize!      " + template);
+        System.out.println(ip + "| Максимальное значение тонера (max):"+max+"; Текущее значение тонера (cur):"+cur+" |");
 
+        realtonerlvl(max,cur);
+    }
+
+    private void realtonerlvl (String m, String c) throws ArithmeticException {
+        //TODO:write private method for TonerLVL (use P=A\B*100%) applicable to printer, who usage 2 OID for toner lvl
+        if (m != null && c != null) {
+            float a = new Float(c);
+            float b = new Float(m);
+            float p = ((a / b) * 100);
+            paramValues.put("BlackTonerLevel", String.valueOf((int)p));
+        }
+        else {}
     }
 
     public String getValueByKey(String key){
