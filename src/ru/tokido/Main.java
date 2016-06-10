@@ -54,22 +54,13 @@ public class Main {
                     p.recognize();
                     //p.print(); //TODO: write this method
                     pmap.put(ip, p);
-
-                } finally {
-                    snmpquerier.stop();
-                }
+                } finally {snmpquerier.stop();}
             } catch (IOException e) {e.printStackTrace();}
         }
 
-
-
-//        for (Printer printer : pmap.values()) {
-//            String blackTonerLevel = printer.getValueByKey("BlackTonerLevel");
-//            System.out.println("IP: "+printer.getIp()+" BlackTonerLevel: "+blackTonerLevel);
-//        }
-
         for (Printer printer : pmap.values()) {
-            System.out.println("Params for Printer ["+ printer.getIp()+"] "+printer.getModel()+" NetName :"+printer.getValueByKey("NetName"));
+            System.out.println("Params for Printer ["+ printer.getIp()+"] "+printer.getModel()+
+                    " NetName :"+printer.getValueByKey("NetName"));
             for (String paramKey : printer.getParamKeys()) {
                 String valueByKey = printer.getValueByKey(paramKey);
                 System.out.println(
@@ -79,19 +70,5 @@ public class Main {
         }
         //TODO:for future GUI, map of fully completed objects
         System.out.println("pmap is: "+pmap.size()+"\n "+pmap);
-//        for (String p : list) {
-//            printerModel.setIp(p);
-//            try {
-//                try {
-//                    snmpquerier.start();
-//                    //sending request and get response from device
-//                    printerModel.setModel(snmpquerier.send(p, "1.3.6.1.2.1.25.3.2.1.3.1"));
-//                    System.out.println(printerModel + "; ip=" + printerModel.getIp() + "; model=" + printerModel.getModel());
-//                } finally {
-//                    snmpquerier.stop(); }
-//            } catch (IOException e) {
-//                System.out.println(e.toString());
-//            }
-//        }
     }
 }

@@ -1,6 +1,9 @@
 package ru.tokido;
 
+import org.snmp4j.smi.OctetString;
+
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +38,6 @@ public class Printer {
                 paramValues.put(key, oidValue);
             }
         }
-
         String max = null;
         String cur = null;
         for (Map.Entry<String, String> entry : paramValues.entrySet()) {
@@ -44,13 +46,10 @@ public class Printer {
             if (key.equals(maxkey)) max = parm;
             if (key.equals(curkey)) cur = parm;
         }
-        System.out.println(ip + "| Максимальное значение тонера (max):"+max+"; Текущее значение тонера (cur):"+cur+" |");
-
         realtonerlvl(max,cur);
     }
 
-    private void realtonerlvl (String m, String c) throws ArithmeticException {
-        //TODO:write private method for TonerLVL (use P=A\B*100%) applicable to printer, who usage 2 OID for toner lvl
+    private void realtonerlvl (String m, String c) {
         if (m != null && c != null) {
             float a = new Float(c);
             float b = new Float(m);

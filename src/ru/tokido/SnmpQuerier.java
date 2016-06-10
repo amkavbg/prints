@@ -29,6 +29,13 @@ public class SnmpQuerier {
         // send the PDU
         ResponseEvent event = snmp.send(pdu, target, null);
         if (event != null) {
+            //return event.getResponse().get(0).toValueString();
+            Variable var = event.getResponse().get(0).getVariable();
+            if (var instanceof OctetString){
+                OctetString octetStr = (OctetString) var;
+                byte[] bytes = octetStr.getValue();
+                return new String(bytes,"UTF-8");
+            }
             return event.getResponse().get(0).toValueString();
         } else {
             return "Timeout exceeded";
