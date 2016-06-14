@@ -1,9 +1,6 @@
-package ru.tokido;
-
-import org.snmp4j.smi.OctetString;
+package ru.tokido.engine;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +23,7 @@ public class Printer {
     public void recognize () throws IOException {
         String maxkey = "BlackTonerLevelMAX";
         String curkey = "BlackTonerLevelCurrent";
+
         Map<String, String> paramToOid = template.getParameters();
         for (Map.Entry<String, String> entry : paramToOid.entrySet()) {
             String wv = "none";
@@ -38,6 +36,7 @@ public class Printer {
                 paramValues.put(key, oidValue);
             }
         }
+
         String max = null;
         String cur = null;
         for (Map.Entry<String, String> entry : paramValues.entrySet()) {

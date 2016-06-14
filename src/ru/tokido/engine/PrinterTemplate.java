@@ -1,4 +1,4 @@
-package ru.tokido;
+package ru.tokido.engine;
 
 import java.util.HashMap;
 import java.util.Map;

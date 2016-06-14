@@ -3,17 +3,30 @@ package ru.tokido;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.tokido.engine.Printer;
+import ru.tokido.engine.PrinterTemplate;
+import ru.tokido.engine.SnmpQuerier;
+import ru.tokido.gui.MainWindow;
 
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
+        EventQueue.invokeLater(() -> {
+            //TODO: write here all recognize work
+            new MainWindow();
+        });
+
         SnmpQuerier snmpquerier = new SnmpQuerier();
         ObjectMapper m = new ObjectMapper();
         Map<String, PrinterTemplate> ptempmap = new HashMap<>();
         Map<String, Printer> pmap = new HashMap<>();  //map printer object with completed filed #model,#oid map and other
+
         //read config and create array ip
         List<String> iplist = new ArrayList<>();  //array ip from text file
         Scanner in = new Scanner(new File("ip.txt"));
@@ -41,7 +54,8 @@ public class Main {
                 }
                 ptempmap.put(printerTemplate.getModel(), printerTemplate);
             }
-            System.out.println("Printer template map (ptempmap) contains: "+ptempmap.size()+" template object."+"\n "+ptempmap);   //
+            System.out.println("Printer template map (ptempmap) contains: "+ptempmap.size()+" " +
+                    "template object."+"\n "+ptempmap);   //
         } catch (JsonGenerationException e) {e.printStackTrace();}
 
         //assign ip to object

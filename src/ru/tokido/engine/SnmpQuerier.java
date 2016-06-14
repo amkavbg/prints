@@ -1,4 +1,4 @@
-package ru.tokido;
+package ru.tokido.engine;
 
 import org.snmp4j.*;
 import org.snmp4j.event.ResponseEvent;
