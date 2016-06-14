@@ -1,24 +1,26 @@
-package ru.tokido;
+package ru.tokido.engine;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.tokido.engine.Printer;
-import ru.tokido.engine.PrinterTemplate;
-import ru.tokido.gui.MainWindow;
 
-import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
-public class Main {
+/**
+ * Created by tokido on 6/14/16.
+ */
+public class Engine {
 
-    public static void main(String[] args) throws IOException {
+    public Engine() throws IOException {
+        SnmpQuerier snmpquerier = new SnmpQuerier();
         ObjectMapper m = new ObjectMapper();
         Map<String, PrinterTemplate> ptempmap = new HashMap<>();
+        Map<String, Printer> pmap = new HashMap<>();
 
         //read config and create array ip
-        java.util.List<String> iplist = new ArrayList<>();  //array ip from text file
+        List<String> iplist = new ArrayList<>();  //array ip from text file
         Scanner in = new Scanner(new File("ip.txt"));
         while (in.hasNextLine()) iplist.add(in.nextLine());
 
@@ -48,13 +50,35 @@ public class Main {
             e.printStackTrace();
         }
 
+        //assign ip to object
+        for (String ip : iplist) {
+            try {
+                try {
+                    snmpquerier.start();
+                    String pmodel = snmpquerier.send(ip, "1.3.6.1.2.1.25.3.2.1.3.1");
+                    Printer p = new Printer(ptempmap.get(pmodel), ip, snmpquerier);
+                    p.recognize();
+                    //p.print(); //TODO: write this method, or mb no need this
+                    pmap.put(ip, p);
+                } finally {
+                    snmpquerier.stop();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-        EventQueue.invokeLater(() -> {
-            //TODO: write here all recognize work
-            System.out.println("GUI STARTED");
-            new MainWindow(ptempmap);
-        });
-
-
+        for (Printer printer : pmap.values()) {
+            System.out.println("Params for Printer [" + printer.getIp() + "] " + printer.getModel() +
+                    " NetName :" + printer.getValueByKey("NetName"));
+            for (String paramKey : printer.getParamKeys()) {
+                String valueByKey = printer.getValueByKey(paramKey);
+                System.out.println(
+                        "        Param key: " + paramKey + " :" + valueByKey
+                );
+            }
+        }
+        //TODO:for future GUI, map of fully completed objects
+        System.out.println("pmap is: " + pmap.size() + "\n " + pmap);
     }
 }
