@@ -19,7 +19,8 @@ public class PTableModel extends AbstractTableModel {
        this.tableparm = data.getParameters();
        this.columnName = data.getModel();
        keys = tableparm.keySet().toArray(new String[tableparm.size()]);
-        System.out.println("tablemodel is prepare");
+        System.out.println("tablemodel is prep" +
+                "are");
     }
 
     @Override
