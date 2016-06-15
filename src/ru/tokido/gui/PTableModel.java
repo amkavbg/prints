@@ -19,15 +19,12 @@ public class PTableModel extends AbstractTableModel {
        this.tableparm = data.getParameters();
        this.columnName = data.getModel();
        keys = tableparm.keySet().toArray(new String[tableparm.size()]);
+        System.out.println("tablemodel is prepare");
     }
 
     @Override
-    public String getColumnName(int columnIndex) {
-        if (columnIndex == 0) {
-            return columnName;
-        } else {
-            return "";
-        }
+    public String getColumnName(int column) {
+        return super.getColumnName(column);
     }
 
     @Override
