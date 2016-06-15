@@ -14,22 +14,15 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
         ObjectMapper m = new ObjectMapper();
         Map<String, PrinterTemplate> ptempmap = new HashMap<>();
-
-        //read config and create array ip
-        java.util.List<String> iplist = new ArrayList<>();  //array ip from text file
+        java.util.List<String> iplist = new ArrayList<>();
         Scanner in = new Scanner(new File("ip.txt"));
         while (in.hasNextLine()) iplist.add(in.nextLine());
-
-        //read config.json, create hashmap template\skeleton object with model and oid map
         try {
             JsonNode root = m.readTree(new File("config.json"));
-            //System.out.println(root.getNodeType());  //lets see what type the node is //prints OBJECT
-            //System.out.println(root.isContainerNode()); //is it a container //prints true
             JsonNode secondroot = root.path("Printers");
-            //System.out.println(secondroot.getNodeType());  //prints ARRAY
-            //System.out.println(secondroot.isContainerNode());   //true
             for (JsonNode node : secondroot) {
                 PrinterTemplate printerTemplate = new PrinterTemplate();
                 printerTemplate.setModel(node.path("desc").asText());
@@ -54,7 +47,6 @@ public class Main {
             System.out.println("GUI STARTED");
             new MainWindow(ptempmap);
         });
-
 
     }
 }

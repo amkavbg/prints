@@ -12,12 +12,12 @@ import java.util.Map;
 public class MainWindow extends JFrame{
 
     public MainWindow (Map<String, PrinterTemplate> tmp){
-        setTitle("Prints 0.2a by tokido");
 
+        setTitle("Prints 0.2a by tokido");
         final Container container = getContentPane();
         final JPanel mainPanel = new JPanel(new BorderLayout());
         final JPanel panel = new JPanel(new GridLayout(0,1,0,3));
-        panel.setBorder(BorderFactory.createLineBorder(Color.GREEN)); //
+            panel.setBorder(BorderFactory.createLineBorder(Color.GREEN)); //
 
         final JButton jButton = new JButton("Refresh");
             jButton.addChangeListener(e -> {
@@ -26,20 +26,21 @@ public class MainWindow extends JFrame{
 
         //for ()  //TODO:write code which multiple put object to table
         for (PrinterTemplate pt : tmp.values()) {
-            JTable table = new JTable(new PTableModel());
-            table.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+            JTable table = new JTable(new PTableModel(pt));
+                table.setBorder(BorderFactory.createLineBorder(Color.BLUE));
             panel.add(table);
         }
 
         final JScrollPane jpane = new JScrollPane(panel);
-        jpane.setBorder(BorderFactory.createLineBorder(Color.RED));
+            jpane.setBorder(BorderFactory.createLineBorder(Color.RED));
 
-        mainPanel.add(jpane);
-        container.add(mainPanel);
+        //mainPanel.add(jpane);
+        container.add(mainPanel.add(jpane));
         container.add(jButton, BorderLayout.SOUTH);
 
         setBounds(200, 200, 900, 700);
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultLookAndFeelDecorated(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
