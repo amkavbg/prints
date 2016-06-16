@@ -17,8 +17,9 @@ public class MainWindow extends JFrame{
 
         final Container container = getContentPane();
         final JPanel mainPanel = new JPanel(new BorderLayout());
-        final JPanel panel = new JPanel(new GridLayout(0,1,5,5));
+        final JPanel panel = new JPanel();
             panel.setBorder(BorderFactory.createLineBorder(Color.GREEN)); //
+            panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 
         final JButton jButton = new JButton("Refresh");
             jButton.addChangeListener(e -> {
@@ -29,13 +30,12 @@ public class MainWindow extends JFrame{
         for (PrinterTemplate pt : tmp.values()) {
             JTable table = new JTable(new PTableModel(pt));
                 table.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-            System.out.println("Object: "+pt.getModel()+ " TABLE SIZE: "+table.getPreferredSize());
             panel.add(table);
         }
+
         final JScrollPane jpane = new JScrollPane(panel);
             jpane.setBorder(BorderFactory.createLineBorder(Color.RED));
 
-        //mainPanel.add(jpane);
         container.add(mainPanel.add(jpane));
         container.add(jButton, BorderLayout.SOUTH);
 

@@ -68,17 +68,23 @@ public class Engine {
             }
         }
 
-        for (Printer printer : pmap.values()) {
-            System.out.println("Params for Printer [" + printer.getIp() + "] " + printer.getModel() +
-                    " NetName :" + printer.getValueByKey("NetName"));
-            for (String paramKey : printer.getParamKeys()) {
-                String valueByKey = printer.getValueByKey(paramKey);
-                System.out.println(
-                        "        Param key: " + paramKey + " :" + valueByKey
-                );
-            }
-        }
+
+//        for (Printer printer : pmap.values()) {
+//            System.out.println("Params for Printer [" + printer.getIp() + "] " + printer.getModel() +
+//                    " NetName :" + printer.getValueByKey("NetName"));
+//            for (String paramKey : printer.getParamKeys()) {
+//                String valueByKey = printer.getValueByKey(paramKey);
+//                System.out.println(
+//                        "        Param key: " + paramKey + " :" + valueByKey
+//                );
+//            }
+//        }
+
         //TODO:for future GUI, map of fully completed objects
         System.out.println("pmap is: " + pmap.size() + "\n " + pmap);
+    }
+
+    public Map<String,String> getRecognizeMap () {
+        return
     }
 }

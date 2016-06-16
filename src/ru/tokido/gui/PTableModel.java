@@ -17,7 +17,6 @@ public class PTableModel extends AbstractTableModel {
     public PTableModel(PrinterTemplate data) {
        this.tableparm = data.getParameters();
        keys = tableparm.keySet().toArray(new String[tableparm.size()]);
-        System.out.println(tableparm.size());
     }
 
     @Override
