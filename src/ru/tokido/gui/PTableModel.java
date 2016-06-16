@@ -13,19 +13,11 @@ public class PTableModel extends AbstractTableModel {
 
     private String[] keys;
     private Map<String, String> tableparm = new HashMap<>();
-    private String columnName;
 
     public PTableModel(PrinterTemplate data) {
        this.tableparm = data.getParameters();
-       this.columnName = data.getModel();
        keys = tableparm.keySet().toArray(new String[tableparm.size()]);
-        System.out.println("tablemodel is prep" +
-                "are");
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return super.getColumnName(column);
+        System.out.println(tableparm.size());
     }
 
     @Override

@@ -35,8 +35,8 @@ public class Main {
                 }
                 ptempmap.put(printerTemplate.getModel(), printerTemplate);
             }
-            System.out.println("Printer template map (ptempmap) contains: " + ptempmap.size() + " " +
-                    "template object." + "\n " + ptempmap);   //
+            System.out.println("Printer template map (ptempmap) contains: " +
+                    ptempmap.size() + " template object." + "\n " + ptempmap);   //
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         }
