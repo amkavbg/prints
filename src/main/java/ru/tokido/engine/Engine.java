@@ -85,6 +85,6 @@ public class Engine {
     }
 
     public Map<String,String> getRecognizeMap () {
-        return
+        return null;
     }
 }
