@@ -1,6 +1,5 @@
 .idea
 out
-src/main/webapp/
 target/
 ip.txt
 ip_backup.txt
