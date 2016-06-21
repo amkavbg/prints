@@ -14,24 +14,19 @@ import java.util.*;
 public class Engine {
 
     public Engine() throws IOException {
+
         SnmpQuerier snmpquerier = new SnmpQuerier();
         ObjectMapper m = new ObjectMapper();
         Map<String, PrinterTemplate> ptempmap = new HashMap<>();
         Map<String, Printer> pmap = new HashMap<>();
-
-        //read config and create array ip
-        List<String> iplist = new ArrayList<>();  //array ip from text file
+        List<String> iplist = new ArrayList<>();
         Scanner in = new Scanner(new File("ip.txt"));
         while (in.hasNextLine()) iplist.add(in.nextLine());
 
         //read config.json, create hashmap template\skeleton object with model and oid map
         try {
             JsonNode root = m.readTree(new File("config.json"));
-            //System.out.println(root.getNodeType());  //lets see what type the node is //prints OBJECT
-            //System.out.println(root.isContainerNode()); //is it a container //prints true
             JsonNode secondroot = root.path("Printers");
-            //System.out.println(secondroot.getNodeType());  //prints ARRAY
-            //System.out.println(secondroot.isContainerNode());   //true
             for (JsonNode node : secondroot) {
                 PrinterTemplate printerTemplate = new PrinterTemplate();
                 printerTemplate.setModel(node.path("desc").asText());
@@ -44,8 +39,7 @@ public class Engine {
                 }
                 ptempmap.put(printerTemplate.getModel(), printerTemplate);
             }
-            System.out.println("Printer template map (ptempmap) contains: " + ptempmap.size() + " " +
-                    "template object." + "\n " + ptempmap);   //
+            //System.out.println("Printer template map (ptempmap) contains: " + ptempmap.size() + " template object." + "\n " + ptempmap);   //
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         }

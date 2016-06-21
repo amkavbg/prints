@@ -39,6 +39,7 @@ public class MainWindow extends JFrame{
         container.add(mainPanel.add(jpane));
         container.add(jButton, BorderLayout.SOUTH);
 
+
         setBounds(200, 200, 900, 700);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -47,6 +48,7 @@ public class MainWindow extends JFrame{
         setVisible(true);
     }
 
+    public void CreateAndShow (){}
 }
 
 
